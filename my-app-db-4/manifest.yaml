@@ -1,0 +1,51 @@
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "my-app-db-4"
+  namespace: "client-apps"
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: "my-app-db-4"
+  template:
+    metadata:
+      labels:
+        app: "my-app-db-4"
+    spec:
+      containers:
+      - name: "my-app-db-4"
+        image: "mysql:8.0"
+        ports:
+        - containerPort: 3306
+        env:
+        - name: "MYSQL_DATABASE"
+          value: "myapp_production"
+        - name: "MYSQL_USER"
+          value: "myapp_user"
+        - name: "MYSQL_PASSWORD"
+          value: "Str0ng#Pass2024!"
+        - name: "MYSQL_ROOT_PASSWORD"
+          value: "Str0ng#Pass2024!"
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "my-app-db-4-svc"
+  namespace: "client-apps"
+spec:
+  type: "ClusterIP"
+  selector:
+    app: "my-app-db-4"
+  ports:
+  - port: 3306
+    targetPort: 3306
+---
+apiVersion: "v1"
+kind: "ConfigMap"
+metadata:
+  name: "tcp-services"
+  namespace: "ingress-nginx"
+data:
+  "3306": "client-apps/my-app-db-4-svc:3306"
