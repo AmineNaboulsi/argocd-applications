@@ -1,0 +1,49 @@
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "db-dbameamine-1771978417209"
+  namespace: "client-apps"
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: "db-dbameamine-1771978417209"
+  template:
+    metadata:
+      labels:
+        app: "db-dbameamine-1771978417209"
+    spec:
+      containers:
+      - name: "db-dbameamine-1771978417209"
+        image: "postgres:15"
+        ports:
+        - containerPort: 5432
+        env:
+        - name: "POSTGRES_DB"
+          value: "dbameamine"
+        - name: "POSTGRES_USER"
+          value: "csqcqscsqvsq"
+        - name: "POSTGRES_PASSWORD"
+          value: "vqvsqcscSà@12@12"
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "db-dbameamine-1771978417209-svc"
+  namespace: "client-apps"
+spec:
+  type: "ClusterIP"
+  selector:
+    app: "db-dbameamine-1771978417209"
+  ports:
+  - port: 5432
+    targetPort: 5432
+---
+apiVersion: "v1"
+kind: "ConfigMap"
+metadata:
+  name: "tcp-services"
+  namespace: "ingress-nginx"
+data:
+  "5432": "client-apps/db-dbameamine-1771978417209-svc:5432"
