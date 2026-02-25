@@ -1,0 +1,51 @@
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "db-dbameamine-1771978174857"
+  namespace: "client-apps"
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: "db-dbameamine-1771978174857"
+  template:
+    metadata:
+      labels:
+        app: "db-dbameamine-1771978174857"
+    spec:
+      containers:
+      - name: "db-dbameamine-1771978174857"
+        image: "mysql:8.0"
+        ports:
+        - containerPort: 3306
+        env:
+        - name: "MYSQL_DATABASE"
+          value: "dbameamine"
+        - name: "MYSQL_USER"
+          value: "admin"
+        - name: "MYSQL_PASSWORD"
+          value: "Iiiy@@@7568798"
+        - name: "MYSQL_ROOT_PASSWORD"
+          value: "Iiiy@@@7568798"
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "db-dbameamine-1771978174857-svc"
+  namespace: "client-apps"
+spec:
+  type: "ClusterIP"
+  selector:
+    app: "db-dbameamine-1771978174857"
+  ports:
+  - port: 3306
+    targetPort: 3306
+---
+apiVersion: "v1"
+kind: "ConfigMap"
+metadata:
+  name: "tcp-services"
+  namespace: "ingress-nginx"
+data:
+  "3306": "client-apps/db-dbameamine-1771978174857-svc:3306"
