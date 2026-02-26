@@ -1,0 +1,49 @@
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "db-databsename-1772142851626"
+  namespace: "client-apps"
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: "db-databsename-1772142851626"
+  template:
+    metadata:
+      labels:
+        app: "db-databsename-1772142851626"
+    spec:
+      containers:
+      - name: "db-databsename-1772142851626"
+        image: "postgres:15"
+        ports:
+        - containerPort: 5432
+        env:
+        - name: "POSTGRES_DB"
+          value: "databsename"
+        - name: "POSTGRES_USER"
+          value: "username"
+        - name: "POSTGRES_PASSWORD"
+          value: "Password@@123"
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "db-databsename-1772142851626-svc"
+  namespace: "client-apps"
+spec:
+  type: "ClusterIP"
+  selector:
+    app: "db-databsename-1772142851626"
+  ports:
+  - port: 5432
+    targetPort: 5432
+---
+apiVersion: "v1"
+kind: "ConfigMap"
+metadata:
+  name: "tcp-services"
+  namespace: "ingress-nginx"
+data:
+  "5432": "client-apps/db-databsename-1772142851626-svc:5432"
