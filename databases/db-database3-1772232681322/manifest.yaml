@@ -1,0 +1,42 @@
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "db-database3-1772232681322"
+  namespace: "client-apps"
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: "db-database3-1772232681322"
+  template:
+    metadata:
+      labels:
+        app: "db-database3-1772232681322"
+    spec:
+      containers:
+      - name: "db-database3-1772232681322"
+        image: "postgres:15"
+        ports:
+        - containerPort: 5432
+        env:
+        - name: "POSTGRES_DB"
+          value: "database3"
+        - name: "POSTGRES_USER"
+          value: "database3"
+        - name: "POSTGRES_PASSWORD"
+          value: "database3@@A"
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "db-database3-1772232681322-svc"
+  namespace: "client-apps"
+spec:
+  type: "NodePort"
+  selector:
+    app: "db-database3-1772232681322"
+  ports:
+  - port: 5432
+    targetPort: 5432
+    nodePort: 30400
