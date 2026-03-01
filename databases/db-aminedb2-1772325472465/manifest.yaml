@@ -1,0 +1,42 @@
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "db-aminedb2-1772325472465"
+  namespace: "client-apps"
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: "db-aminedb2-1772325472465"
+  template:
+    metadata:
+      labels:
+        app: "db-aminedb2-1772325472465"
+    spec:
+      containers:
+      - name: "db-aminedb2-1772325472465"
+        image: "postgres:15"
+        ports:
+        - containerPort: 5432
+        env:
+        - name: "POSTGRES_DB"
+          value: "aminedb2"
+        - name: "POSTGRES_USER"
+          value: "aminedb2"
+        - name: "POSTGRES_PASSWORD"
+          value: "Aminedb2@@12"
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "db-aminedb2-1772325472465-svc"
+  namespace: "client-apps"
+spec:
+  type: "NodePort"
+  selector:
+    app: "db-aminedb2-1772325472465"
+  ports:
+  - port: 5432
+    targetPort: 5432
+    nodePort: 30401
