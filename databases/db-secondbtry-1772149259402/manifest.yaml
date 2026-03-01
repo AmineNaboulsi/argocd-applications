@@ -1,0 +1,43 @@
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "db-secondbtry-1772149259402"
+  namespace: "client-apps"
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: "db-secondbtry-1772149259402"
+  template:
+    metadata:
+      labels:
+        app: "db-secondbtry-1772149259402"
+    spec:
+      containers:
+      - name: "db-secondbtry-1772149259402"
+        image: "mysql:8.0"
+        ports:
+        - containerPort: 3306
+        env:
+        - name: "MYSQL_DATABASE"
+          value: "secondbtry"
+        - name: "MYSQL_USER"
+          value: "secondbtry"
+        - name: "MYSQL_PASSWORD"
+          value: "secondbtry@@123A"
+        - name: "MYSQL_ROOT_PASSWORD"
+          value: "secondbtry@@123A"
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "db-secondbtry-1772149259402-svc"
+  namespace: "client-apps"
+spec:
+  type: "ClusterIP"
+  selector:
+    app: "db-secondbtry-1772149259402"
+  ports:
+  - port: 3306
+    targetPort: 3306

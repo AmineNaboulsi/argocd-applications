@@ -1,0 +1,30 @@
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "my-app-db"
+  namespace: "client-apps"
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: "my-app-db"
+  template:
+    metadata:
+      labels:
+        app: "my-app-db"
+    spec:
+      containers:
+      - name: "my-app-db"
+        image: "mysql:8.0"
+        ports:
+        - containerPort: 3306
+        env:
+        - name: "MYSQL_DATABASE"
+          value: "myapp_production"
+        - name: "MYSQL_USER"
+          value: "myapp_user"
+        - name: "MYSQL_PASSWORD"
+          value: "Str0ng#Pass2024!"
+        - name: "MYSQL_ROOT_PASSWORD"
+          value: "Str0ng#Pass2024!"

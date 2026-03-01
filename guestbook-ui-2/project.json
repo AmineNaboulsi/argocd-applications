@@ -1,0 +1,30 @@
+{
+  "deployment" : {
+    "apiVersion" : "apps/v1",
+    "kind" : "Deployment",
+    "metadata" : {
+      "name" : "guestbook-ui-2",
+      "namespace" : "client-apps"
+    },
+    "spec" : {
+      "replicas" : 1,
+      "revisionHistoryLimit" : 3,
+      "selector" : null,
+      "template" : {
+        "metadata" : {
+          "name" : null,
+          "namespace" : null
+        },
+        "spec" : {
+          "containers" : [ {
+            "name" : "guestbook-ui-2",
+            "image" : "gcr.io/google-samples/gb-frontend:v5",
+            "ports" : [ {
+              "containerPort" : 0
+            } ]
+          } ]
+        }
+      }
+    }
+  }
+}

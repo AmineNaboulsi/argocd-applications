@@ -1,0 +1,15 @@
+{
+  "id" : null,
+  "reference" : null,
+  "createdAt" : null,
+  "updatedAt" : null,
+  "name" : "Test-App",
+  "server" : "b5472461-3655-4ab3-ba5e-8d82ac355898",
+  "description" : "Test-App description",
+  "deployment_mode" : "DOCKER_IMAGE",
+  "docker_image" : "gcr.io/google-samples/gb-frontend:v5",
+  "registry_username" : "test",
+  "registry_password" : "test",
+  "resource_cpu" : "250m",
+  "resource_memory" : "64Mi"
+}

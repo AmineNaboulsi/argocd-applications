@@ -1,0 +1,21 @@
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "Test-App12"
+  namespace: "client-apps"
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: "Test-App12"
+  template:
+    metadata:
+      labels:
+        app: "Test-App12"
+    spec:
+      containers:
+      - name: "Test-App12"
+        image: "gcr.io/google-samples/gb-frontend:v5"
+        ports:
+        - containerPort: 80

@@ -1,0 +1,14 @@
+{
+  "id" : null,
+  "reference" : null,
+  "createdAt" : null,
+  "updatedAt" : null,
+  "name" : "wordpress00x56789",
+  "description" : "wordpress description",
+  "deployment_mode" : "DOCKER_IMAGE",
+  "docker_image" : "wordpress:latest",
+  "registry_username" : "admin",
+  "registry_password" : "admin",
+  "resource_cpu" : "512Mi",
+  "resource_memory" : "500m"
+}

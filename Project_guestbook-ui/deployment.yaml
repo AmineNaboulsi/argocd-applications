@@ -1,0 +1,20 @@
+apiVersion: "apps/v1"
+kind: "Deployment"
+apiName: "Deployment"
+metadata:
+  name: "guestbook-ui"
+  namespace: null
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector: null
+  template:
+    metadata:
+      name: null
+      namespace: null
+    spec:
+      containers:
+      - name: "guestbook-ui"
+        image: "gcr.io/google-samples/gb-frontend:v5"
+        ports:
+        - containerPort: 0

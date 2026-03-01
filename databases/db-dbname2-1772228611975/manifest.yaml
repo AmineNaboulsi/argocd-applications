@@ -1,0 +1,43 @@
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "db-dbname2-1772228611975"
+  namespace: "client-apps"
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: "db-dbname2-1772228611975"
+  template:
+    metadata:
+      labels:
+        app: "db-dbname2-1772228611975"
+    spec:
+      containers:
+      - name: "db-dbname2-1772228611975"
+        image: "mysql:8.0"
+        ports:
+        - containerPort: 3306
+        env:
+        - name: "MYSQL_DATABASE"
+          value: "dbname2"
+        - name: "MYSQL_USER"
+          value: "dbname2"
+        - name: "MYSQL_PASSWORD"
+          value: "dbname2@@A"
+        - name: "MYSQL_ROOT_PASSWORD"
+          value: "dbname2@@A"
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "db-dbname2-1772228611975-svc"
+  namespace: "client-apps"
+spec:
+  type: "ClusterIP"
+  selector:
+    app: "db-dbname2-1772228611975"
+  ports:
+  - port: 3306
+    targetPort: 3306

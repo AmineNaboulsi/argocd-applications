@@ -1,0 +1,49 @@
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "db-firsttypedb-1772148671258"
+  namespace: "client-apps"
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: "db-firsttypedb-1772148671258"
+  template:
+    metadata:
+      labels:
+        app: "db-firsttypedb-1772148671258"
+    spec:
+      containers:
+      - name: "db-firsttypedb-1772148671258"
+        image: "postgres:15"
+        ports:
+        - containerPort: 5432
+        env:
+        - name: "POSTGRES_DB"
+          value: "firsttypedb"
+        - name: "POSTGRES_USER"
+          value: "firsttypedb"
+        - name: "POSTGRES_PASSWORD"
+          value: "firsttypedb@@FF1"
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "db-firsttypedb-1772148671258-svc"
+  namespace: "client-apps"
+spec:
+  type: "ClusterIP"
+  selector:
+    app: "db-firsttypedb-1772148671258"
+  ports:
+  - port: 5432
+    targetPort: 5432
+---
+apiVersion: "v1"
+kind: "ConfigMap"
+metadata:
+  name: "tcp-services"
+  namespace: "ingress-nginx"
+data:
+  "5432": "client-apps/db-firsttypedb-1772148671258-svc:5432"
